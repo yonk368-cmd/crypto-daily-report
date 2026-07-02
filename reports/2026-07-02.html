@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin:0;
+      padding:0;
+      background:#f6f7f9;
+      color:#111827;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+      line-height:1.55;
+    }
+    .wrap {
+      max-width:880px;
+      margin:0 auto;
+      padding:22px 14px 34px;
+    }
+    .header {
+      background:#111827;
+      color:#fff;
+      border-radius:8px;
+      padding:22px;
+    }
+    .header h1 {
+      margin:0 0 8px;
+      font-size:24px;
+      line-height:1.25;
+      letter-spacing:0;
+    }
+    .muted {
+      color:#6b7280;
+      font-size:13px;
+    }
+    .header .muted {
+      color:#d1d5db;
+    }
+    .summary {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin:14px 0;
+    }
+    .metric {
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:8px;
+      padding:14px;
+    }
+    .metric-label {
+      color:#6b7280;
+      font-size:12px;
+      margin-bottom:6px;
+    }
+    .metric-value {
+      font-size:19px;
+      font-weight:800;
+    }
+    .section {
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:8px;
+      margin-top:14px;
+      overflow:hidden;
+    }
+    .section h2 {
+      margin:0;
+      padding:15px 16px;
+      font-size:17px;
+      border-bottom:1px solid #e5e7eb;
+      background:#fafafa;
+    }
+    .body {
+      padding:16px;
+    }
+    .table-wrap {
+      overflow-x:auto;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+      min-width:760px;
+    }
+    th {
+      background:#f3f4f6;
+      color:#374151;
+      text-align:left;
+      font-weight:700;
+      padding:10px;
+      border-bottom:1px solid #d1d5db;
+      white-space:nowrap;
+    }
+    td {
+      padding:11px 10px;
+      border-bottom:1px solid #e5e7eb;
+      vertical-align:top;
+    }
+    .number {
+      text-align:right;
+      white-space:nowrap;
+      font-variant-numeric:tabular-nums;
+    }
+    .badge {
+      display:inline-block;
+      border:1px solid;
+      border-radius:999px;
+      padding:2px 9px;
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .note {
+      background:#f9fafb;
+      border-left:4px solid #9ca3af;
+      padding:12px 14px;
+      margin:0;
+      color:#374151;
+    }
+    .copy {
+      white-space:pre-wrap;
+      word-break:break-word;
+      background:#111827;
+      color:#f9fafb;
+      border-radius:8px;
+      padding:14px;
+      font-size:13px;
+      line-height:1.65;
+      overflow-x:auto;
+    }
+    ul {
+      margin:0;
+      padding-left:20px;
+    }
+    li {
+      margin:5px 0;
+    }
+    a {
+      color:#2563eb;
+    }
+    @media (max-width:720px) {
+      .summary {
+        display:block;
+      }
+      .metric {
+        margin-bottom:10px;
+      }
+      .header h1 {
+        font-size:21px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>每日虚拟货币数据复盘</h1>
+      <div class="muted">2026-07-02 23:43 北京时间 · V3-lite 数据底稿</div>
+    </div>
+
+    <div class="summary">
+      <div class="metric">
+        <div class="metric-label">整体状态</div>
+        <div class="metric-value">可判断</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">24h 最强</div>
+        <div class="metric-value">ETH</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">24h 最弱</div>
+        <div class="metric-value">BNB</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">ETH ETF</div>
+        <div class="metric-value"><span class="badge" style="background:#f3f4f6;color:#374151;border-color:#d1d5db;">待验证</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>1. 数据有效性与行情表</h2>
+      <div class="body">
+        <p class="note"><strong>整体结论：</strong>价格数据可用于趋势判断。偏差小于等于 0.3% 为 OK，0.3%-0.8% 为 WARNING，大于 0.8% 为 INVALID。</p>
+        <div class="table-wrap" style="margin-top:14px;">
+          <table>
+            <thead>
+              <tr>
+                <th>标的</th>
+                <th class="number">OKX 主源价格</th>
+                <th class="number">24h 涨跌</th>
+                <th>校验源</th>
+                <th class="number">最大偏差</th>
+                <th>状态</th>
+                <th>强结论</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            <tr>
+              <td><strong>BTC</strong></td>
+              <td class="number">$61,730.40</td>
+              <td class="number" style="color:#047857;font-weight:700;">+2.482%</td>
+              <td>Coinbase $61,670.56<br>CoinGecko $61,657.00</td>
+              <td class="number">0.119%</td>
+              <td><span class="badge" style="background:#dcfce7;color:#166534;border-color:#86efac;">OK</span></td>
+              <td>是</td>
+            </tr>
+            
+            <tr>
+              <td><strong>ETH</strong></td>
+              <td class="number">$1,701.64</td>
+              <td class="number" style="color:#047857;font-weight:700;">+4.869%</td>
+              <td>Coinbase $1,699.84<br>CoinGecko $1,699.69</td>
+              <td class="number">0.115%</td>
+              <td><span class="badge" style="background:#dcfce7;color:#166534;border-color:#86efac;">OK</span></td>
+              <td>是</td>
+            </tr>
+            
+            <tr>
+              <td><strong>BNB</strong></td>
+              <td class="number">$563.40</td>
+              <td class="number" style="color:#047857;font-weight:700;">+1.770%</td>
+              <td>CoinGecko $562.49</td>
+              <td class="number">0.162%</td>
+              <td><span class="badge" style="background:#dcfce7;color:#166534;border-color:#86efac;">OK</span></td>
+              <td>是</td>
+            </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>2. 今日重点</h2>
+      <div class="body">
+        <ul>
+          <li><strong>24h 表现最强：</strong>ETH</li>
+          <li><strong>24h 表现最弱：</strong>BNB</li>
+          <li><strong>强弱判断：</strong>按 OKX 24h 涨跌幅初步排序；若状态不是 OK，应保守解读。</li>
+          <li><strong>主导结构：</strong>仍需结合成交量、BTC.D、ETH/BTC 和宏观风险偏好确认。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>3. ETH ETF 流入流出</h2>
+      <div class="body">
+        <table style="min-width:0;">
+          <tbody>
+            <tr><th>状态</th><td><span class="badge" style="background:#f3f4f6;color:#374151;border-color:#d1d5db;">待验证</span></td></tr>
+            <tr><th>数据日期</th><td>N/A</td></tr>
+            <tr><th>Total</th><td style="color:#374151;font-weight:800;">N/A</td></tr>
+            <tr><th>单位</th><td>US$m</td></tr>
+            <tr><th>来源</th><td><a href="https://farside.co.uk/ethereum-etf-flow-all-data/">https://farside.co.uk/ethereum-etf-flow-all-data/</a></td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:14px;"><strong>备注：</strong>ETH ETF 数据抓取失败：403 Client Error: Forbidden for url: https://farside.co.uk/ethereum-etf-flow-all-data/</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. 待验证与观察点</h2>
+      <div class="body">
+        <ul>
+          <li>若任一标的为 INVALID，优先排查数据源，不直接下强趋势结论。</li>
+          <li>ETH ETF 若为净流入通常偏支撑，净流出通常偏拖累；数据日期滞后时必须标记待验证。</li>
+          <li>明日重点观察 BTC 是否继续主导方向、ETH 是否获得 ETF 支撑、BNB 是否独立强势。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>5. 复制给 ChatGPT 分析区</h2>
+      <div class="body">
+        <div class="copy">日期：2026-07-02
+价格数据：
+- BTC: 主源 OKX=$61,730.40, 校验源 Coinbase=$61,670.56; CoinGecko=$61,657.00, 24h涨跌=+2.482%, 最大偏差=0.119%, 状态=OK, 允许强结论=是
+- ETH: 主源 OKX=$1,701.64, 校验源 Coinbase=$1,699.84; CoinGecko=$1,699.69, 24h涨跌=+4.869%, 最大偏差=0.115%, 状态=OK, 允许强结论=是
+- BNB: 主源 OKX=$563.40, 校验源 CoinGecko=$562.49, 24h涨跌=+1.770%, 最大偏差=0.162%, 状态=OK, 允许强结论=是
+
+ETH ETF：
+- 状态：待验证
+- 日期：N/A
+- Total：N/A
+- 备注：ETH ETF 数据抓取失败：403 Client Error: Forbidden for url: https://farside.co.uk/ethereum-etf-flow-all-data/
+
+请输出：
+1. 数据是否可靠
+2. BTC / ETH / BNB 强弱关系
+3. ETH ETF 对 ETH 的支撑或拖累
+4. 今日市场主线
+5. 明日观察点
+6. 哪些结论必须标记为待验证</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

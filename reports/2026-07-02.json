@@ -4,25 +4,25 @@
       "symbol": "BTC",
       "primary": {
         "source": "OKX",
-        "price": 61714.4,
-        "change_24h": 0.02222700732949607,
+        "price": 61730.4,
+        "change_24h": 0.024819292309837735,
         "error": null
       },
       "checks": [
         {
           "source": "Coinbase",
-          "price": 61633.6,
+          "price": 61670.56,
           "change_24h": null,
           "error": null
         },
         {
           "source": "CoinGecko",
-          "price": 61718.0,
-          "change_24h": 0.025160092169949987,
+          "price": 61657.0,
+          "change_24h": 0.02460022907654031,
           "error": null
         }
       ],
-      "max_deviation": 0.0013109732353781527,
+      "max_deviation": 0.0011904568824302425,
       "status": "OK",
       "allow_strong_conclusion": true
     },
@@ -30,25 +30,25 @@
       "symbol": "ETH",
       "primary": {
         "source": "OKX",
-        "price": 1699.71,
-        "change_24h": 0.04477951391023207,
+        "price": 1701.64,
+        "change_24h": 0.04868609180101562,
         "error": null
       },
       "checks": [
         {
           "source": "Coinbase",
-          "price": 1697.92,
+          "price": 1699.84,
           "change_24h": null,
           "error": null
         },
         {
           "source": "CoinGecko",
-          "price": 1699.91,
-          "change_24h": 0.04807321997294989,
+          "price": 1699.69,
+          "change_24h": 0.048436282947639825,
           "error": null
         }
       ],
-      "max_deviation": 0.0010542310591782672,
+      "max_deviation": 0.0011472680312292509,
       "status": "OK",
       "allow_strong_conclusion": true
     },
@@ -56,19 +56,19 @@
       "symbol": "BNB",
       "primary": {
         "source": "OKX",
-        "price": 562.9,
-        "change_24h": 0.016248420292471567,
+        "price": 563.4,
+        "change_24h": 0.017702312138728242,
         "error": null
       },
       "checks": [
         {
           "source": "CoinGecko",
-          "price": 562.16,
-          "change_24h": 0.01710483076819084,
+          "price": 562.49,
+          "change_24h": 0.01735732593083509,
           "error": null
         }
       ],
-      "max_deviation": 0.0013163512167354652,
+      "max_deviation": 0.001617806538782855,
       "status": "OK",
       "allow_strong_conclusion": true
     }
