@@ -1,0 +1,43 @@
+name: Crypto Daily Report
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 13:10 UTC = 21:10 Beijing time. A minute offset avoids the busiest top-of-hour window.
+    - cron: "10 13 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate report
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_TO_EMAIL: ${{ secrets.REPORT_TO_EMAIL }}
+          ETH_ETF_DATE: ${{ vars.ETH_ETF_DATE }}
+          ETH_ETF_TOTAL_USD_M: ${{ vars.ETH_ETF_TOTAL_USD_M }}
+        run: python crypto_daily_report.py
+
+      - name: Archive report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          git diff --cached --quiet || git commit -m "Add crypto daily report"
+          git push
