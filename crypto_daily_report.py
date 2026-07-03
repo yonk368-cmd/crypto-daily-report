@@ -189,6 +189,39 @@ def change_color(value: Optional[float]) -> str:
     return "#374151"
 
 
+def build_chatgpt_prompt(report_date: str, checks: list[AssetCheck], etf: EtfFlow) -> str:
+    lines = [
+        f"日期：{report_date}",
+        "价格数据：",
+    ]
+    for item in checks:
+        checks_text = "; ".join(f"{p.source}={money(p.price)}" for p in item.checks) or "N/A"
+        lines.append(
+            f"- {item.symbol}: 主源 OKX={money(item.primary.price)}, 校验源 {checks_text}, "
+            f"24h涨跌={signed_percent(item.primary.change_24h)}, 最大偏差={percent(item.max_deviation)}, "
+            f"状态={item.status}, 允许强结论={'是' if item.allow_strong_conclusion else '否'}"
+        )
+    lines.extend(
+        [
+            "",
+            "ETH ETF：",
+            f"- 状态：{etf.status}",
+            f"- 日期：{etf.date or 'N/A'}",
+            f"- Total：{flow_money(etf.total_usd_m)}",
+            f"- 备注：{etf.note}",
+            "",
+            "请输出：",
+            "1. 数据是否可靠",
+            "2. BTC / ETH / BNB 强弱关系",
+            "3. ETH ETF 对 ETH 的支撑或拖累",
+            "4. 今日市场主线",
+            "5. 明日观察点",
+            "6. 哪些结论必须标记为待验证",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def build_asset_checks() -> list[AssetCheck]:
     symbols = list(ASSETS)
     gecko_prices = fetch_coingecko(symbols)
@@ -452,34 +485,10 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
     strong, weak = strongest_and_weakest(checks)
     all_valid = all(item.allow_strong_conclusion for item in checks)
     market_status = "价格数据可用于趋势判断" if all_valid else "部分价格数据需保守处理"
-    copy_lines = [
-        f"日期：{report_date}",
-        "价格数据：",
-    ]
-    for item in checks:
-        checks_text = "; ".join(f"{p.source}={money(p.price)}" for p in item.checks) or "N/A"
-        copy_lines.append(
-            f"- {item.symbol}: 主源 OKX={money(item.primary.price)}, 校验源 {checks_text}, "
-            f"24h涨跌={signed_percent(item.primary.change_24h)}, 最大偏差={percent(item.max_deviation)}, "
-            f"状态={item.status}, 允许强结论={'是' if item.allow_strong_conclusion else '否'}"
-        )
-    copy_lines.extend(
-        [
-            "",
-            "ETH ETF：",
-            f"- 状态：{etf.status}",
-            f"- 日期：{etf.date or 'N/A'}",
-            f"- Total：{flow_money(etf.total_usd_m)}",
-            f"- 备注：{etf.note}",
-            "",
-            "请输出：",
-            "1. 数据是否可靠",
-            "2. BTC / ETH / BNB 强弱关系",
-            "3. ETH ETF 对 ETH 的支撑或拖累",
-            "4. 今日市场主线",
-            "5. 明日观察点",
-            "6. 哪些结论必须标记为待验证",
-        ]
+    prompt_text = build_chatgpt_prompt(report_date, checks, etf)
+    top_line = (
+        f"{market_status}；24h 最强为 {strong}，最弱为 {weak}；"
+        f"ETH ETF 状态为 {etf.status}。"
     )
 
     rows = []
@@ -520,17 +529,17 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
     .wrap {{
       max-width:880px;
       margin:0 auto;
-      padding:22px 14px 34px;
+      padding:16px 14px 30px;
     }}
     .header {{
       background:#111827;
       color:#fff;
       border-radius:8px;
-      padding:22px;
+      padding:16px 18px;
     }}
     .header h1 {{
-      margin:0 0 8px;
-      font-size:24px;
+      margin:0 0 6px;
+      font-size:20px;
       line-height:1.25;
       letter-spacing:0;
     }}
@@ -541,26 +550,14 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
     .header .muted {{
       color:#d1d5db;
     }}
-    .summary {{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin:14px 0;
-    }}
-    .metric {{
+    .brief {{
       background:#fff;
       border:1px solid #e5e7eb;
       border-radius:8px;
-      padding:14px;
-    }}
-    .metric-label {{
-      color:#6b7280;
-      font-size:12px;
-      margin-bottom:6px;
-    }}
-    .metric-value {{
-      font-size:19px;
-      font-weight:800;
+      margin-top:12px;
+      padding:13px 15px;
+      font-size:15px;
+      color:#1f2937;
     }}
     .section {{
       background:#fff;
@@ -576,6 +573,16 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
       border-bottom:1px solid #e5e7eb;
       background:#fafafa;
     }}
+    .section.primary {{
+      border-color:#cbd5e1;
+      box-shadow:0 1px 0 rgba(15,23,42,0.04);
+    }}
+    .section.primary h2 {{
+      background:#111827;
+      color:#fff;
+      border-bottom-color:#111827;
+      font-size:19px;
+    }}
     .body {{
       padding:16px;
     }}
@@ -589,7 +596,7 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
       min-width:760px;
     }}
     th {{
-      background:#f3f4f6;
+      background:#eef2f7;
       color:#374151;
       text-align:left;
       font-weight:700;
@@ -634,6 +641,23 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
       line-height:1.65;
       overflow-x:auto;
     }}
+    .prompt-note {{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:8px;
+      color:#1e3a8a;
+      padding:12px 14px;
+      margin-bottom:12px;
+    }}
+    .fake-button {{
+      display:inline-block;
+      background:#2563eb;
+      color:#fff;
+      border-radius:6px;
+      padding:8px 12px;
+      font-weight:700;
+      margin-top:8px;
+    }}
     ul {{
       margin:0;
       padding-left:20px;
@@ -645,14 +669,8 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
       color:#2563eb;
     }}
     @media (max-width:720px) {{
-      .summary {{
-        display:block;
-      }}
-      .metric {{
-        margin-bottom:10px;
-      }}
       .header h1 {{
-        font-size:21px;
+        font-size:19px;
       }}
     }}
   </style>
@@ -664,27 +682,12 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
       <div class="muted">{escape(generated_at)} 北京时间 · V3-lite 数据底稿</div>
     </div>
 
-    <div class="summary">
-      <div class="metric">
-        <div class="metric-label">整体状态</div>
-        <div class="metric-value">{escape('可判断' if all_valid else '需谨慎')}</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">24h 最强</div>
-        <div class="metric-value">{escape(strong)}</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">24h 最弱</div>
-        <div class="metric-value">{escape(weak)}</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">ETH ETF</div>
-        <div class="metric-value"><span class="badge" style="{etf_style}">{escape(etf.status)}</span></div>
-      </div>
+    <div class="brief">
+      <strong>今日概览：</strong>{escape(top_line)}
     </div>
 
-    <div class="section">
-      <h2>1. 数据有效性与行情表</h2>
+    <div class="section primary">
+      <h2>1. 核心行情表</h2>
       <div class="body">
         <p class="note"><strong>整体结论：</strong>{escape(market_status)}。偏差小于等于 0.3% 为 OK，0.3%-0.8% 为 WARNING，大于 0.8% 为 INVALID。</p>
         <div class="table-wrap" style="margin-top:14px;">
@@ -750,7 +753,11 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
     <div class="section">
       <h2>5. 复制给 ChatGPT 分析区</h2>
       <div class="body">
-        <div class="copy">{escape(chr(10).join(copy_lines))}</div>
+        <div class="prompt-note">
+          Gmail 不允许邮件内按钮直接操作剪贴板；我已把同样内容作为 <strong>chatgpt_prompt_{escape(report_date)}.txt</strong> 附件发出。打开附件后全选复制，会比在长邮件里拖选更稳。
+          <br><span class="fake-button">使用附件复制</span>
+        </div>
+        <div class="copy">{escape(prompt_text)}</div>
       </div>
     </div>
   </div>
@@ -758,7 +765,13 @@ def build_html_report(checks: list[AssetCheck], etf: EtfFlow) -> str:
 </html>"""
 
 
-def send_email(subject: str, body: str, html_body: Optional[str] = None) -> None:
+def send_email(
+    subject: str,
+    body: str,
+    html_body: Optional[str] = None,
+    attachment_text: Optional[str] = None,
+    attachment_name: Optional[str] = None,
+) -> None:
     gmail_user = os.getenv("GMAIL_USER")
     gmail_password = os.getenv("GMAIL_APP_PASSWORD")
     report_to = os.getenv("REPORT_TO_EMAIL")
@@ -774,6 +787,13 @@ def send_email(subject: str, body: str, html_body: Optional[str] = None) -> None
     message.set_content(body)
     if html_body:
         message.add_alternative(html_body, subtype="html")
+    if attachment_text and attachment_name:
+        message.add_attachment(
+            attachment_text.encode("utf-8"),
+            maintype="text",
+            subtype="plain",
+            filename=attachment_name,
+        )
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
         smtp.login(gmail_user, gmail_password)
@@ -804,6 +824,7 @@ def main() -> int:
     date_slug = now_bj.strftime("%Y-%m-%d")
     report_path = REPORTS_DIR / f"{date_slug}.md"
     html_path = REPORTS_DIR / f"{date_slug}.html"
+    prompt_path = REPORTS_DIR / f"chatgpt_prompt_{date_slug}.txt"
     debug_path = REPORTS_DIR / f"{date_slug}.json"
 
     if os.getenv("GITHUB_EVENT_NAME") == "schedule" and report_path.exists():
@@ -814,15 +835,24 @@ def main() -> int:
     etf = fetch_eth_etf_flow()
     report = build_report(checks, etf)
     html_report = build_html_report(checks, etf)
+    prompt_text = build_chatgpt_prompt(date_slug, checks, etf)
 
     report_path.write_text(report, encoding="utf-8")
     html_path.write_text(html_report, encoding="utf-8")
+    prompt_path.write_text(prompt_text, encoding="utf-8")
     write_debug_json(checks, etf, debug_path)
 
     subject = f"每日虚拟货币数据复盘 {date_slug}"
-    send_email(subject, report, html_report)
+    send_email(
+        subject,
+        report,
+        html_report,
+        attachment_text=prompt_text,
+        attachment_name=f"chatgpt_prompt_{date_slug}.txt",
+    )
     print(f"Report written to {report_path}")
     print(f"HTML report written to {html_path}")
+    print(f"ChatGPT prompt written to {prompt_path}")
     return 0
 
 
