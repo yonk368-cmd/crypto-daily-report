@@ -1,0 +1,19 @@
+日期：2026-07-12
+价格数据：
+- BTC: 主源 OKX=$64,155.70, 校验源 Coinbase=$64,096.75; CoinGecko=$64,089.00, 24h涨跌=+0.160%, 最大偏差=0.104%, 状态=OK, 允许强结论=是
+- ETH: 主源 OKX=$1,813.99, 校验源 Coinbase=$1,812.86; CoinGecko=$1,812.37, 24h涨跌=+1.204%, 最大偏差=0.089%, 状态=OK, 允许强结论=是
+- BNB: 主源 OKX=$580.00, 校验源 CoinGecko=$579.39, 24h涨跌=+0.887%, 最大偏差=0.105%, 状态=OK, 允许强结论=是
+
+ETH ETF：
+- 状态：待验证
+- 日期：N/A
+- Total：N/A
+- 备注：ETH ETF 数据抓取失败：403 Client Error: Forbidden for url: https://farside.co.uk/ethereum-etf-flow-all-data/
+
+请输出：
+1. 数据是否可靠
+2. BTC / ETH / BNB 强弱关系
+3. ETH ETF 对 ETH 的支撑或拖累
+4. 今日市场主线
+5. 明日观察点
+6. 哪些结论必须标记为待验证
