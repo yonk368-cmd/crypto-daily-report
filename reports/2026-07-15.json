@@ -1,0 +1,83 @@
+{
+  "assets": [
+    {
+      "symbol": "BTC",
+      "primary": {
+        "source": "OKX",
+        "price": 64472.1,
+        "change_24h": 0.039316043666939665,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "Coinbase",
+          "price": 64433.11,
+          "change_24h": null,
+          "error": null
+        },
+        {
+          "source": "CoinGecko",
+          "price": 64404.0,
+          "change_24h": 0.03881884605482731,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0010573877398919096,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    },
+    {
+      "symbol": "ETH",
+      "primary": {
+        "source": "OKX",
+        "price": 1867.7,
+        "change_24h": 0.058192964266086514,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "Coinbase",
+          "price": 1866.6,
+          "change_24h": null,
+          "error": null
+        },
+        {
+          "source": "CoinGecko",
+          "price": 1865.65,
+          "change_24h": 0.05744449991408664,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0010988127462278317,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    },
+    {
+      "symbol": "BNB",
+      "primary": {
+        "source": "OKX",
+        "price": 580.0,
+        "change_24h": 0.028368794326241134,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "CoinGecko",
+          "price": 579.57,
+          "change_24h": 0.02762995439052291,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0007419293614230377,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    }
+  ],
+  "eth_etf": {
+    "date": null,
+    "total_usd_m": null,
+    "status": "待验证",
+    "note": "ETH ETF 数据抓取失败：403 Client Error: Forbidden for url: https://farside.co.uk/ethereum-etf-flow-all-data/",
+    "source_url": "https://farside.co.uk/ethereum-etf-flow-all-data/"
+  }
+}
