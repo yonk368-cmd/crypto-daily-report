@@ -1,0 +1,83 @@
+{
+  "assets": [
+    {
+      "symbol": "BTC",
+      "primary": {
+        "source": "OKX",
+        "price": 65054.7,
+        "change_24h": 0.006857901677098208,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "Coinbase",
+          "price": 65006.85,
+          "change_24h": null,
+          "error": null
+        },
+        {
+          "source": "CoinGecko",
+          "price": 64969.0,
+          "change_24h": 0.005810544230655816,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0013190906432298034,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    },
+    {
+      "symbol": "ETH",
+      "primary": {
+        "source": "OKX",
+        "price": 1926.4,
+        "change_24h": 0.030623381625971027,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "Coinbase",
+          "price": 1924.83,
+          "change_24h": null,
+          "error": null
+        },
+        {
+          "source": "CoinGecko",
+          "price": 1924.35,
+          "change_24h": 0.02988871378377667,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0010652947748591378,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    },
+    {
+      "symbol": "BNB",
+      "primary": {
+        "source": "OKX",
+        "price": 580.0,
+        "change_24h": -0.001033413709955258,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "CoinGecko",
+          "price": 579.42,
+          "change_24h": -0.0020846561921786947,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0010010010010010717,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    }
+  ],
+  "eth_etf": {
+    "date": null,
+    "total_usd_m": null,
+    "status": "待验证",
+    "note": "ETH ETF 数据抓取失败：403 Client Error: Forbidden for url: https://farside.co.uk/ethereum-etf-flow-all-data/",
+    "source_url": "https://farside.co.uk/ethereum-etf-flow-all-data/"
+  }
+}
