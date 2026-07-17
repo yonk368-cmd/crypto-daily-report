@@ -1,0 +1,83 @@
+{
+  "assets": [
+    {
+      "symbol": "BTC",
+      "primary": {
+        "source": "OKX",
+        "price": 63628.8,
+        "change_24h": -0.013214765922932194,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "Coinbase",
+          "price": 63583.66,
+          "change_24h": null,
+          "error": null
+        },
+        {
+          "source": "CoinGecko",
+          "price": 63609.0,
+          "change_24h": -0.012904094192767552,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0007099308218495037,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    },
+    {
+      "symbol": "ETH",
+      "primary": {
+        "source": "OKX",
+        "price": 1837.98,
+        "change_24h": -0.021606860537536486,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "Coinbase",
+          "price": 1836.59,
+          "change_24h": null,
+          "error": null
+        },
+        {
+          "source": "CoinGecko",
+          "price": 1837.31,
+          "change_24h": -0.021293782621234443,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0007568373997463234,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    },
+    {
+      "symbol": "BNB",
+      "primary": {
+        "source": "OKX",
+        "price": 564.4,
+        "change_24h": -0.022345401004676906,
+        "error": null
+      },
+      "checks": [
+        {
+          "source": "CoinGecko",
+          "price": 564.29,
+          "change_24h": -0.021908199625522696,
+          "error": null
+        }
+      ],
+      "max_deviation": 0.0001949352283400621,
+      "status": "OK",
+      "allow_strong_conclusion": true
+    }
+  ],
+  "eth_etf": {
+    "date": null,
+    "total_usd_m": null,
+    "status": "待验证",
+    "note": "ETH ETF 数据抓取失败：403 Client Error: Forbidden for url: https://farside.co.uk/ethereum-etf-flow-all-data/",
+    "source_url": "https://farside.co.uk/ethereum-etf-flow-all-data/"
+  }
+}
